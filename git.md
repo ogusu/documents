@@ -1,8 +1,8 @@
-#Git
+# Git
 リポジトリが `sturdy-engine` の例。リポジトリのURLは以下になる。  
 https://github.com/ogusu/sturdy-engine
 
-##ローカルリポジトリの作成（init）
+## ローカルリポジトリの作成（init）
 
 GitHubでリポジトリを作れるが、ローカルか作業を初めて、GitHubにPushするときに作成したい場合は以下の通り。
 
@@ -14,7 +14,7 @@ git init
     Initialized empty Git repository in /Users/takanori/Documents/Repository/.git/
 ~~~
 
-##ローカルリポジトリに変更を反映（add, commit）
+## ローカルリポジトリに変更を反映（add, commit）
 
 適当にファイルを作って、変更点を反映する。インデックスの追加と、コミットをする。  
 「作業ツリー」は単純なファイルシステム上のファイルですが「インデックス」はGitが管理するバイナリファイルです。(.gitディレクトリ内にあるindexというファイルです。)	
@@ -48,7 +48,7 @@ git status
     nothing to commit, working tree clean
 ~~~
 
-##リモートリポジトリに変更を反映（push）
+## リモートリポジトリに変更を反映（push）
 
 次に、リモートリポジトリへPushする。  
 pushの前に、gitへリモートリポジトリの位置を登録。以降はエイリアス `origin` でpushできる。  
