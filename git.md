@@ -7,11 +7,11 @@ https://github.com/ogusu/sturdy-engine
 GitHubでリポジトリを作れるが、ローカルか作業を初めて、GitHubにPushするときに作成したい場合は以下の通り。
 
 まず、ローカルにフォルダを作り、gitのリポジトリを作る
-~~~
+~~~git
 mkdir Repository
 cd Repository/
 git init
-    Initialized empty Git repository in /Users/takanori/Documents/Repository/.git/
+    Initialized empty Git repository in /Users/xxx/Documents/Repository/.git/
 ~~~
 
 ## ローカルリポジトリに変更を反映（add, commit）
@@ -19,7 +19,7 @@ git init
 適当にファイルを作って、変更点を反映する。インデックスの追加と、コミットをする。  
 「作業ツリー」は単純なファイルシステム上のファイルですが「インデックス」はGitが管理するバイナリファイルです。(.gitディレクトリ内にあるindexというファイルです。)	
 
-~~~
+~~~git
 echo "# sturdy-engine" >> README.md
 ls -a
     .  ..  .git  README.md
@@ -35,7 +35,7 @@ git status
 
 git commit -m "my first commit"
     [master (root-commit) 41cee5f] my first commit
-    Committer: 小楠貴紀 <takanori@mba.local>
+    Committer: xxx <xxx@mba.local>
     Your name and email address were configured automatically based
     on your username and hostname. Please check that they are accurate.
     You can suppress this message by setting them explicitly. Run the
@@ -58,11 +58,11 @@ git status
 pushの前に、gitへリモートリポジトリの位置を登録。以降はエイリアス `origin` でpushできる。  
 まだGitHubにリポジトリはないがpushすると作ってくれる。
 
-~~~
+~~~git
 git remote add origin https://github.com/ogusu/sturdy-engine.git
 git push -u origin master
-    Username for 'https://github.com': takanori.ogusu@gmail.com
-    Password for 'https://takanori.ogusu@gmail.com@github.com':
+    Username for 'https://github.com': xxx.ogusu@gmail.com
+    Password for 'https://xxx.ogusu@gmail.com@github.com':
     Counting objects: 3, done.
     Writing objects: 100% (3/3), 244 bytes | 0 bytes/s, done.
     Total 3 (delta 0), reused 0 (delta 0)
@@ -72,10 +72,10 @@ git push -u origin master
 ~~~
 
 最後の修正を見てみる。最後のcommitはHEADと呼ばれ、以下のように表示したり、diffで対象にしたりできる。
-~~~
+~~~git
 git show HEAD
     commit ce0afbfe8ea9390a62604d4d7eca462ed9a2291f
-    Author: 小楠貴紀 <takanori@mba.local>
+    Author: xxx <xxx@mba.local>
             ・・・
 ~~~
 
@@ -83,7 +83,7 @@ git show HEAD
 
 さらに変更してコミット、pushしてみる。  
 修正はコミットだけではなく、インデックスに追加してから、コミットする必要がある。
-~~~
+~~~git
 git add .
 git commit -m "next commit"
 ~~~
@@ -93,7 +93,7 @@ git commit -m "next commit"
 ある固まった修正を一つのコミットにしたい場合に便利な仕組み。
 
 インデックスへの追加とコミットを同時にすることもできる。
-~~~
+~~~git
 git commit -a aaa.html
 ~~~
 
@@ -122,15 +122,15 @@ index 75382af..77c0149 100644
 ### コミットとの差分
 
 「最新コミット」(HEAD)→ 「作業ツリー」 の差分を見る。
-~~~
+~~~git
 git diff HEAD
 ~~~
 「指定したコミット」→「作業ツリー」の差分を見る。
-~~~
+~~~git
 git diff <commit>
 ~~~
 「HEAD」→「インデックス」の差分を見る。
-~~~
+~~~git
 git diff --cached
 git diff --cached HEAD
 ~~~
@@ -144,48 +144,50 @@ git diff --cached HEAD
 ## その他の差分確認
 
 差分が生じたファイルの、ファイル名の一覧を表示します。比較元（引数）は自由に指定できます。
-~~~
+~~~git
 git diff --name-only
 ~~~
 
 比較するファイルを限定する。「パス」（ディレクトリ名など）も指定可能。
-~~~
+~~~git
 git diff <コミット名> <コミット名> ―― <ファイル名>
 git diff <コミット名>:<ファイル名> <コミット名>:<ファイル名>
 ~~~
 特定のコミット間を比較する。
-~~~
+~~~git
 git diff 比較元のコミット 比較先のコミット
 ~~~
 
 ## 直前のコミットの内容を表示
 HEADの一個前 から　HEADへの変化を表示。
-~~~
+~~~git
 git diff HEAD^ HEAD
 ~~~
 
 HEADのコミット内容を表示
-~~~
+~~~git
 git diff show
 git diff show HEAD
 ~~~
 
 ## リモートブランチとローカルブランチの差分を比較
 
-「特定のコミット同士の比較」の応用編です。リモートブランチからmasterをpull する前に「どのくらい先にすすんじゃったんだろ？」なんて、事前に調べたい時に使います。
+リモート側で修正が入っているとpushが失敗し、pullしろと言われるが、
+git pull すると確認もなしにいきなりローカルリポジトリにマージされてしまう。
+「git fetch & git merge」の順に行ったほうがいい。
 
-git pull は、いうなれば「git fetch & git merge」ですので、いきなり git pull を実行すると、いきなりローカルブランチにマージがかかってしまいます。
-
-これを事前にdiffで差分を確認します。イメージしやすいように、masterブランチの例で書くと・・・、
-~~~
-// リモートを取ってきて・・（// origin から master ブランチに関する履歴と参照を取得する）
+以下のようにすると、リモートリポジトリの現在の状態との差分を見ながらマージができる。
+~~~git
+# origin から master ブランチの履歴と参照を取得
 git fetch origin master																							
-// [ローカル] → [リモート追跡]の差分を見る
+# ローカルとリモートの差分を確認
 git diff master origin/master
+# 問題なさそうならマージ
+git merge?
 ~~~
 
 ## コミットの一覧
-~~~
+~~~git
 git log
 ~~~
 																							
