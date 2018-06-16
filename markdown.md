@@ -32,9 +32,10 @@ $ary = array();
 サンプルここまで
 
 ## 文字装飾
-通常 **太字** *斜体* ~~打ち消し~~  
----
-<font color="Red">テキスト</font>
+normal **bold** normal
+normal __bold__ normal 日本語は __うまく__ でないことがある。
+normal ***bold*** normal
+normal ___bold___ normal 日本語は ___うまく___ でないことがある。
 
 ## Table
 |Title|Type|Description|
@@ -46,3 +47,9 @@ $ary = array();
 [GitHub repository](http://github.com/ogusu/)
 
 ![sample.png](https://github.com/ "sample")
+
+
+## 水平線
+アスタリスクかハイフンを３つ以上で罫線。
+---
+プレビューだと日本語の前後がおかしくなることがある。
