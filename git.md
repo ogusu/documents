@@ -28,6 +28,7 @@ git commit --amend
 ~~~git
 git commit --amend --author="Takanori Ogusu <takanori.ogusu@gmail.com>"
 git rebase --continue
+git commit --amend
 ~~~
 
 ## ローカルリポジトリに変更を反映（add, commit）
