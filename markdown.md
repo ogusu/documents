@@ -1,4 +1,4 @@
-#Markdown記法のまとめ
+# Markdown記法のまとめ
 
 ## リスト
 * テキスト
@@ -30,6 +30,18 @@ $param = 12;
 $ary = array();
 ```
 サンプルここまで
+
+半角スペース4個もしくはタブで、コードブロックをpre表示できます
+
+    $param = 12;
+    $ary = array();
+ここまで。
+
+GitHubならチルダでもOK
+~~~php
+$param = 12;
+$ary = array();
+~~~
 
 ## 文字装飾
 normal **bold** normal
