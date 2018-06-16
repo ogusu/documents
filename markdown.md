@@ -37,8 +37,10 @@ $ary = array();
 <font color="Red">テキスト</font>
 
 ## Table
-| 1 | 2 | 3 |
-| :-: | 5 | 6 |
+|Title|Type|Description|
+|:---|:---|:---|
+|table|string|テーブルを表示したい|
+
 
 ## リンク
 [GitHub repository](http://github.com/ogusu/)
