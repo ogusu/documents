@@ -23,13 +23,16 @@ git init
 echo "# sturdy-engine" >> README.md
 ls -a
     .  ..  .git  README.md
+    
 git add README.md
+
 git status
     On branch master
     Initial commit
     Changes to be committed:
     (use "git rm --cached <file>..." to unstage)
     new file:  README.md
+
 git commit -m "my first commit"
     [master (root-commit) 41cee5f] my first commit
     Committer: 小楠貴紀 <takanori@mba.local>
@@ -43,6 +46,7 @@ git commit -m "my first commit"
     git commit --amend --reset-author
     1 file changed, 1 insertion(+)
     create mode 100644 README.md
+
 git status
     On branch master
     nothing to commit, working tree clean
