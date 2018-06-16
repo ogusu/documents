@@ -14,6 +14,20 @@ git init
     Initialized empty Git repository in /Users/xxx/Documents/Repository/.git/
 ~~~
 
+## authorを変更する
+
+コミットに登録されるcommitterなどを変更しておく。
+
+リポジトリ直下の.gitconfigの設定を追加します。
+~~~git
+git config --local user.name takanori.ogusu
+git config --local user.email takanori.ogusu@gmail.com
+~~~
+更新したい情報を .gitconfig に設定した後に、--amend で情報を変更します。
+~~~git
+git commit --amend
+~~~
+
 ## ローカルリポジトリに変更を反映（add, commit）
 
 適当にファイルを作って、変更点を反映する。インデックスの追加と、コミットをする。  
