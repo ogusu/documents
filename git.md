@@ -206,5 +206,7 @@ git merge?
 ## コミットの一覧
 ~~~git
 git log
+git log --decorate --graph --oneline
+git log --all --decorate --graph --oneline
 ~~~
 																							
