@@ -209,4 +209,11 @@ git log
 git log --decorate --graph --oneline
 git log --all --decorate --graph --oneline
 ~~~
-																							
+
+### 認証
+通常はssh公開鍵・認証鍵方式で接続するが、httpsのBASIC認証でも接続可能。
+~~~git
+git remote set-url origin https://ユーザー名:パスワード@github.com/repogitory-name.git
+~~~
+
+
