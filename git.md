@@ -215,5 +215,12 @@ git log --all --decorate --graph --oneline
 ~~~git
 git remote set-url origin https://ユーザー名:パスワード@github.com/repogitory-name.git
 ~~~
+ローカルに `.netrc` ファイルを配置しても可能だが推奨されない。
+~~~git
+machine github.com
+login ユーザー名
+password パスワード
+~~~
+
 
 
