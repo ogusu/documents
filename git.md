@@ -222,5 +222,125 @@ login ユーザー名
 password パスワード
 ~~~
 
+### git addの取り消し
+resetコマンドで取り消せる。rmでもいいが--cachedを忘れるとファイル自体が消えてしまうのでresetが安全。
+~~~
+git reset HEAD [ファイルパス]
+git reset HEAD
+git reset
+git rm --cached [ファイル]
+~~~
+
+### 変更点の退避
+commit, addしてない状態でブランチを切り替えたい時がある。その場合はstashすると良い。saveは省略できる。
+~~~
+git stash save
+git stash
+~~~
+戻す時。いまどんな変更を退避しているかを確認
+~~~
+# 2つの変更を保存している状態（2回stashを行った状態）
+git stash list
+ stash@{0}: WIP on sub: a0d2f1b add fourth line
+ stash@{1}: WIP on sub: 1a61919 add second line
+ <stash名>: WIP on <stashを行ったブランチ名>: <ハッシュ> <コミットコメント>
+
+# さらに細かい情報が見たい場合。
+git stash list -p
+git stash show <stash名>
+~~~
+### stashの復元
+~~~
+# 復活させたいstash名で取り出す
+git stash apply stash@{0}
+
+# 復活したらstashを削除
+git stash drop <消したいstash名>
+
+# 復元と削除を同時に
+git stash pop stash@{0}
+
+# 復元の取り消し
+git stash show <適用したstash名> -p | git apply -R
+~~~
+
+### ブランチ
+ブランチを作成する時
+~~~
+# developブランチへ移動
+git checkout develop
+
+# ブランチを作成して移動。-bオプションは作成と移動
+git checkout -b feature/11
 
 
+# 現在のブランチはの確認
+git branch
+~~~
+
+ブランチの削除
+~~~
+# 消したいブランチとは異なるブランチに移動し、ブランチを消す。
+git checkout develop
+git checkout -d feature-creaxxx
+~~~
+
+ブランチをリモートへpush
+~~~
+git add .
+git commit -am "commit"
+git push origin feature/11
+~~~
+
+作業ブランチを親ブランチにマージ
+~~~
+# feature/11 を developにマージ
+
+# まずマージ先に移動。必要ならpullしておくこと。
+git checkout develop
+
+# マージしたいブランチを指定して、マージ。
+git merge --no-ff feature/11
+
+
+--no-ffオプション：fast-forwardの関係であっても、必ずマージコミットを作る。機能追加が見やすい。
+mergeする時、ローカルのdevelopブランチを最新にすること。
+また、feature/11のマージの前にdevelopにすでに修正が入っていると失敗する。feature/11にpullして動作確認しておく。
+~~~
+
+図で分かるgit-mergeの--ff, --no-ff, --squashの違い
+http://d.hatena.ne.jp/sinsoku/20111025/1319497900
+
+他の人とpushが交互になる場合、以下のようにすればブランチが分かれず1本につながる。
+~~~
+git fetch origin
+git rebase origin/master
+~~~
+
+git rebase 失敗した時の対処法
+http://qiita.com/shuntaro_tamura/items/c505b76c1021a35ca9ff
+
+### ログ
+ログのツリーを見やすくする
+~~~
+# ~/.gitconfigに以下を追加。git graphで表示。
+[alias]
+graph = log --graph --date-order -C -M --pretty=format:¥""<%h> %ad [%an] %Cgreen%d%Creset %s¥"" --date=format:¥""%m/%d %R¥""c"
+~~~
+ログの確認
+~~~
+# リモートの状況の把握
+git log origin/develop
+
+# ローカルのチェックアウトの状況の把握
+git remote show origin
+~~~
+
+### ブランチ
+リモートではすでに削除されたが、ローカルに残っているブランチを削除するには以下の通り。
+~~~
+# 削除対象の確認
+git remote prune origin --dry-run
+# 削除実行
+git remote prune origin
+~~~
