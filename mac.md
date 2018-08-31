@@ -86,7 +86,7 @@ $ composer clear-cache
 $ rm -rf ~/.composer/cache
 ```
 
-opensll
+opensll
 
 >The OpenSSL library (0.9.8zc) used by PHP does not support TLSv1.2 or TLSv1.1.			
 If possible you should upgrade OpenSSL to version 1.0.1 or above.
@@ -100,8 +100,8 @@ $ /usr/bin/openssl version
 $ brew list openssl		
     /usr/local/Cellar/openssl/1.0.2o_2/bin/openssl	
 $ /usr/local/Cellar/openssl/1.0.2o_2/bin/openssl version
-    OpenSSL 1.0.2o  27 Mar 2018	
-# 入っているがPATHがとおっていない。		
+    OpenSSL 1.0.2o  27 Mar 2018
+# 入っているがPATHがとおっていない。		
 パスを上書き		
 $ echo "export PATH=/usr/local/Cellar/openssl/1.0.2o_2/bin:$PATH" >> ~/.bash_profile		
 $ source ~/.bash_profile		
