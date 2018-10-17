@@ -109,4 +109,62 @@ $ source ~/.bash_profile
 $ which openssl
 $ openssl version
 ```
+# mariadb
+```sh
+$ brew search mariadb
+$ brew info mariadb
+$ brew install mariadb
+    A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+    server starting up correctly.
 
+    MySQL is configured to only allow connections from localhost by default
+
+    To connect:
+    mysql -uroot
+
+    To have launchd start mariadb now and restart at login:
+    brew services start mariadb
+    Or, if you dont want/need a background service you can just run:
+    mysql.server start
+
+    🍺 /usr/local/Cellar/mariadb/10.3.8: 645 files, 171.5MB, built in 138 minutes 22 seconds
+$ mysql_secure_installation
+
+$ mysql --help | grep cnf
+	/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf order of preference, my.cnf, $MYSQL_TCP_PORT,
+cat /usr/local/etc/my.cnf	
+	#
+	# This group is read both both by the client and the server
+	# use it for options that affect everything
+	#
+	[client-server]
+	
+	#
+	# include all files from the config directory
+	#
+	!includedir /usr/local/etc/my.cnf.d
+timezone	
+	mysql_tzinfo_to_sql /usr/share/zoneinfo/Asia/Tokyo Asia/Tokyo | mysql -u root -p mysql
+vim /etc/my.cnf.d/server.cnf	
+	[mysqld]
+	# 2コア4GBの場合
+	innodb_buffer_pool_size = 2G
+	innodb_buffer_pool_instances = 2
+	innodb_log_file_size = 256M
+	innodb_flush_method = O_DIRECT
+	query_cache_size = 0
+	max_allowed_packet = 16M
+	# 1コア2GBの場合
+	innodb_buffer_pool_size = 1G
+	innodb_buffer_pool_instances = 1
+	innodb_log_file_size = 128M
+	innodb_flush_method = O_DIRECT
+	query_cache_size = 0
+	max_allowed_packet = 16M
+	# 1コア1GBの場合
+	innodb_buffer_pool_size = 512M
+	innodb_buffer_pool_instances = 1
+	innodb_log_file_size = 64M
+	innodb_flush_method = O_DIRECT
+	query_cache_size = 0
+	max_allowed_packet = 16M
