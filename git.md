@@ -75,8 +75,12 @@ git status
 pushの前に、gitへリモートリポジトリの位置を登録。以降はエイリアス `origin` でpushできる。  
 まだGitHubにリポジトリはないがpushすると作ってくれる。
 
-~~~git
+~~~sh
 git remote add origin https://github.com/ogusu/sturdy-engine.git
+
+# ssh公開鍵認証の場合
+git remote add origin git@github.com:ogusu/documents.git
+
 git push -u origin master
     Username for 'https://github.com': xxx.ogusu@gmail.com
     Password for 'https://xxx.ogusu@gmail.com@github.com':
